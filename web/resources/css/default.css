@@ -1,0 +1,28 @@
+
+.ui-datatable table{
+	border-collapse:collapse;width:100%;
+}
+.ui-datatable thead th,.ui-datatable tbody td,.ui-datatable tfoot td{
+        background-color: inherit;
+        font-family: inherit;
+        font-size: 12px;
+}
+.ui-datatable tbody td{
+	border-color:inherit;
+}
+
+.ui-button .ui-button-text {
+    display: block;
+    line-height: normal;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #fff; 
+    font-family: Trebuchet MS, sans-serif;
+    line-height: 1.7;
+    font-weight: 300;
+    font-size: 12px; 
+
+}
+.ui-datatable-scrollable-header-box table th, .ui-datatable-scrollable-footer-box table th, .ui-datatable-scrollable-body table td{
+   width: 30% !important;
+}

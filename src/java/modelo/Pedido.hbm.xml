@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 17, 2022 11:10:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Pedido" table="pedido" schema="public" optimistic-lock="version">
+        <id name="idPedido" type="int">
+            <column name="id_pedido" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="pago" class="modelo.Pago" fetch="select">
+            <column name="id_pago" />
+        </many-to-one>
+        <many-to-one name="usuario" class="modelo.Usuario" fetch="select">
+            <column name="id_usuario" />
+        </many-to-one>
+        <property name="descriDireccion" type="string">
+            <column name="descri_direccion" not-null="true" />
+        </property>
+        <property name="codigoPostal" type="int">
+            <column name="codigo_postal" not-null="true" />
+        </property>
+        <property name="ciudad" type="string">
+            <column name="ciudad" not-null="true" />
+        </property>
+        <property name="total" type="double">
+            <column name="total" precision="17" scale="17" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

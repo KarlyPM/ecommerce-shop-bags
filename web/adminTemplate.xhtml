@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Administracion</title>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+        <h:outputScript library="js" name="bootstrap.min.js"/>   
+    </h:head>
+
+    <h:body>
+
+            <ui:insert name="top">
+                <h:form rendered="#{mbSession.verificarSession()}">
+                
+                <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+
+                    <a class="navbar-brand ps-3">Panel de administración</a>
+                               <div class="input-group">
+                               </div>
+                                <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                                   <h:link class="btn btn-primary btn-block" value = "Ver pagina" outcome = "indexTemplate"/>
+                               </ul>
+                           <!-- Navbar-->
+                           <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                               <h:link class="btn btn-secondary" value = "Salir" outcome = "login"/>
+                           </ul>
+                    <!-- Navbar-->
+                </nav>                
+                </h:form>
+                
+            </ui:insert>
+
+       <div class="row">
+            <div id="left" class="col-sm-2">
+                <ui:insert name="left">
+                    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 220px; position: absolute; height: 1000px;">
+                         <a href="#!" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                           <span class="fs-4">Menu</span>
+                         </a>
+                         <hr/>
+                         <ul class="nav nav-pills flex-column mb-auto text-white text-decoration-none">
+                             <li>
+                              <h:link class="nav-link text-white" value = "Usuarios" outcome = "adminUsuarios" />
+
+                             </li>
+
+                             <li>
+                                 <h:link class="nav-link text-white" value = "Productos" outcome = "adminProducto" />
+                             </li>
+                              <li>
+                                 <h:link class="nav-link text-white" value = "Categorias" outcome = "adminTemplate" />
+                                  
+                             </li>
+                             <li>
+                                 <h:link class="nav-link text-white" value = "Proveedores" outcome = "adminProveedores" />
+                             </li>
+                             
+                         </ul>
+                     </div> 
+                </ui:insert>
+            </div>
+            <div id="content" class="col-lg-9 p-4">
+                <ui:insert name="content">
+                    
+                 <h4>CATEGORIAS</h4>
+                  <h:form id="frmCategoria" >
+                  <div class="p-3 ">
+                        <h:panelGrid id="pngIngresarCatalogo" columns="3" >
+                            <p:outputLabel value="Codigo" />
+                            <h:inputText class="form-control"  id="txtId" value="#{mbCategoria.obj_Categoria.idCategoria}" required="true"/>
+                            <p:message for="txtId"/>
+                            <p:outputLabel value="Descripcion "/>
+                            <h:inputText class="form-control"  id="txtDescripcion" value="#{mbCategoria.obj_Categoria.descripcion}" required="true"/>
+                            <p:message for="txtDescripcion"/>
+                        </h:panelGrid>   
+                  </div>
+                    <div class="p-3">
+                       <p:commandButton icon="ui-icon-plusthick" value="Ingresar" 
+                                        actionListener="#{mbCategoria.agregarCategoria()}"
+                                  update=":frmCategoria :frmConsultar"/>
+                    </div>
+                  </h:form>    
+                      
+                 <div class="p-4">
+                     <div class="site-blocks-table">
+                        <h:form id="frmConsultar">
+                            <p:dataTable id="dtConsulta" value="#{mbCategoria.lstCategoria}" var="cl"
+                                    paginator="true" rows="3"
+                                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                    currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                                    rowsPerPageTemplate="3, 6, 9, {ShowAll|'All'}"                                         
+                                    >
+
+                            <p:column headerText="Codigo">
+                                 <h:outputText value="#{cl.idCategoria}"/>
+                            </p:column>
+                            <p:column headerText="Descripcion">
+                                <h:outputText value="#{cl.descripcion}"/>
+                            </p:column> 
+                             <p:column headerText=".......">
+                            <p:growl id="growl_modi" showDetail="true"/>
+                            <p:commandButton  value="Modificar" 
+                                              oncomplete="PF('dlgModificar').show()" 
+                                              update=":frmModificar">
+                                <f:setPropertyActionListener target="#{mbCategoria.obj_Categoria}" value="#{cl}"/>
+                            </p:commandButton>
+                            </p:column>
+                                <p:column headerText="........">
+                                <p:growl id="growl_elim" showDetail="true"/>
+                                <p:commandButton  value="Eliminar" 
+                                                  oncomplete="PF('dlgEliminar').show()" 
+                                                  update=":frmEliminar">
+                                    <f:setPropertyActionListener target="#{mbCategoria.obj_Categoria}" value="#{cl}"/>
+                                 </p:commandButton>    
+                                </p:column>
+
+                          </p:dataTable>
+                        </h:form> 
+                         
+                        <p:dialog id="dlgModificar" minWidth="300" widgetVar="dlgModificar" 
+                           resizable="true" modal="true" header="Modificar Clientes" 
+                            showEffect="explode" hideEffect="explode">
+                         
+                                <h:form id="frmModificar">
+                                <h:panelGrid id="pngModificarCatalogo" columns="3" >
+                                   <p:outputLabel value="Codigo" />
+                                   <h:inputText class="form-control"  id="txtId_m" value="#{mbCategoria.obj_Categoria.idCategoria}" required="true"/>
+                                   <p:message for="txtId_m"/>
+                                   <p:outputLabel value="Descripcion "/>
+                                   <h:inputText class="form-control"  id="txtDescripcion_m" value="#{mbCategoria.obj_Categoria.descripcion}" required="true"/>
+                                   <p:message for="txtDescripcion_m"/>
+                                   <p:commandButton icon="ui-icon-refresh" value="Modificar" 
+                                                    actionListener="#{mbCategoria.modificarCategoria()}" 
+                                            update=":frmConsultar" 
+                                            oncomplete="PF('dlgModificar').hide()"/>
+                           </h:panelGrid>
+
+
+                            </h:form>
+                        </p:dialog> 
+                         
+                         <p:dialog id="dlgEliminar" widgetVar="dlgEliminar" showEffect="explode" modal="true" minWidth="200"
+                                    resizable="false">
+            
+                        <h:form id="frmEliminar">
+
+                            <p:outputLabel value="Desea eliminar el cliente con id: #{mbCategoria.obj_Categoria.idCategoria}"/>
+                            <p:commandButton icon="ui_icon-check" value="SI" 
+                                             actionListener="#{mbCategoria.eliminarCategoria()}" 
+                                             update=":frmConsultar"
+                                             oncomplete="PF('dlgEliminar').hide()"/>  
+
+                            <p:commandButton icon="ui-icon-trash" value="NO" 
+                                             onclick="PF('dlgEliminar').hide()"/> 
+                    
+                            </h:form>
+                        </p:dialog>    
+                     </div>
+                    </div>
+          
+                </ui:insert>
+            </div>
+        </div>
+    </h:body>
+
+</html>

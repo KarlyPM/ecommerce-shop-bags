@@ -1,0 +1,207 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./indexTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns="http://www.w3.org/1999/xhtml"                                                
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <!--NAVEGACION-->
+        <div class="bg-light py-3">
+          <div class="container">
+            <div class="row">
+                <div class="col-md-12 mb-0">
+                    <a class="a-fontcolor" href="indexTemplate.xhtml">Inicio</a> <span class="mx-2 mb-0">/</span> <a class="a-fontcolor" href="carrito.xhtml">Carrito</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Pagar</strong>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <!--CONTENIDO-->
+        <div class="site-section">
+            <h:form>
+            <div class="container">
+        
+                <div class="row">
+                   
+
+                    <div class="col-md-6 mb-5 mb-md-0">
+
+                    <h2 class="h3 mb-3 text-black">Informacion de envio</h2>
+                        
+                    <div class="p-3 p-lg-5 border">
+                       
+                        <p:growl id="growl" showDetail="true" sticky="true" />
+                            
+
+                        <div class="form-group">
+                        <h:outputLabel class="text-black">Ciudad <span class="text-danger">*</span></h:outputLabel>
+                        <h:selectOneMenu id="c_country" class="form-control" value="#{mbPedido.obj_pedido.ciudad}" required="true" requiredMessage="Seleccionar Ciudad" >
+                                    <f:selectItem itemLabel="--Seleccionar"/>
+                                    <f:selectItem itemLabel="Quito" itemValue="Quito"/>
+                                    <f:selectItem itemLabel="Guayaquil" itemValue="Guayaquil"/>
+                                    <f:selectItem itemLabel="Cuenca" itemValue="Cuenca"/>
+                                    <f:selectItem itemLabel="Esmeralda" itemValue="Esmeralda"/>
+                                    <f:selectItem itemLabel="Manabi" itemValue="Manabi"/>
+                                    <f:selectItem itemLabel="Loja" itemValue="Loja"/>                                    
+                                    <f:selectItem itemLabel="Ambato" itemValue="Ambato"/>
+                                   
+                                    
+                                </h:selectOneMenu>
+                            </div>
+              
+                            <div class="form-group row">
+                
+                                <div class="col-md-12">
+                                    <h:outputLabel class="text-black">Nombres completo </h:outputLabel>
+                                    <h:outputLabel class="form-control" id="c_nombre" value="#{mbSession.obj_Usuario.nombre} #{mbSession.obj_Usuario.apellido}"  />
+                                </div>
+                            </div>
+              
+                            <div class="form-group row">
+                
+                                <div class="col-md-12">
+                                    <h:outputLabel for="c_address" class="text-black">Direccion <span class="text-danger">*</span></h:outputLabel>
+                                    <h:inputText class="form-control" id="c_address" value="#{mbPedido.obj_pedido.descriDireccion}"  required="true" requiredMessage="Debe ingresar la descripcion de direccion" />
+                                </div>
+                            </div>
+              
+                            <div class="form-group row mb-5">
+
+                                <div class="col-md-6">
+                                    <h:outputLabel class="text-black">Codigo Postal<span class="text-danger">*</span></h:outputLabel>
+                                  <h:inputText class="form-control" id="c_email_address" value="#{mbPedido.obj_pedido.codigoPostal}"  required="true" requiredMessage="Debe ingresar Codigo Postal">
+                                  </h:inputText>
+                                </div>
+
+                            </div>
+                        <h:form>
+                            <div class="border p-3 mb-3">
+
+                                <h5><strong>METODO DE PAGO</strong></h5>
+                                    <div class="py-2">
+                                        <br/>
+                                        <h:selectOneRadio value="#{mbPago.obj_pago.metodoPago}">
+                                                <f:selectItem itemValue="Credito" itemLabel="Credito" />
+                                                <f:selectItem itemValue="Debito" itemLabel="Debito" />
+                                        </h:selectOneRadio>
+                                       <br/> 
+                                        <div class="form-group row">
+                                                <div class="col-md-12">
+                                                <h:outputLabel  class="text-black">N° de tarjeta <span class="text-danger">*</span></h:outputLabel>
+                                                <h:inputText class="form-control" value="#{mbPago.obj_pago.numeroTarjeta}" required="true"  requiredMessage="Debe ingresar Numero de Tarjeta">                                                     
+                                                </h:inputText>
+                                              </div>
+                                            </div>
+                        
+                                            <div class="form-group row">
+
+                                            <div class="col-md-12">
+                                                <h:outputLabel for="" class="text-black">Fecha de caducidad <span class="text-danger">*</span></h:outputLabel>
+                                                <h:inputText class="form-control" value="#{mbPago.obj_pago.fechaExpedicion}" required="true" requiredMessage="Debe ingresar fecha de caducidad">
+                                                    <f:convertDateTime pattern="yyyy-MM-dd"/>
+                                                </h:inputText>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="form-group row">
+
+                                        <div class="col-md-12">
+                                            <h:outputLabel for="" class="text-black">Nombre del titular<span class="text-danger">*</span></h:outputLabel>
+                                            <h:inputText class="form-control" value="#{mbPago.obj_pago.nombreTitular}" required="true" requiredMessage="Debe ingresar Nombre Titular"/>
+                                        </div>
+                                    </div>
+                                  </div>
+                                
+                                <h:commandButton class="btn btn-secondary btn-sm" value="Guardar metodo" action="#{mbPago.agregarPago()}" />
+
+                            </div>
+                        </h:form>
+                            
+                                                
+                          </div>
+                    </div>
+                    
+                  
+                    <div class="col-md-6">
+            
+                            <div class="row mb-5">
+
+                                <div class="col-md-12">
+
+                                    <h2 class="h3 mb-3 text-black">Resumen del pedido</h2>
+
+                                    <div class="p-3 p-lg-5 border">
+                                           <!--DATATABLE-->
+                                        <table class="table site-block-order-table mb-5">
+                                            <thead>
+                                                <tr>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                    
+                                            <tbody>
+                                                <tr>
+                                                    <td>Carrito Subtotal<strong class="mx-2" /></td>
+                                                    <td><h:outputText value="#{mbCarrito.obj_pedido.subtotal}">
+                                                            <f:convertNumber type="currency" currencySymbol="$" locale="en_US" />                                                            
+                                                        </h:outputText>
+                                                    
+                                                    </td>
+                                                </tr>
+                      
+                                                <tr>
+                                                    <td>Envio GRATIS<strong class="mx-2" /></td>
+                                                    <td>$0.00</td>
+                                                </tr>
+                      
+                                                <tr>
+
+                                                <td class="text-black font-weight-bold"><strong>I.V.A</strong></td>
+
+                                                <td class="text-black">
+                                                
+                                                    <h:outputText value="#{mbCarrito.obj_pedido.iva}">
+                                                         <f:convertNumber type="currency" currencySymbol="$" locale="en_US" />
+
+                                                    </h:outputText>
+                                                </td>
+                                                </tr>
+
+                                                <tr>
+
+                                                <td class="text-black font-weight-bold"><strong>Orden Total</strong></td>
+
+                                                <td class="text-black font-weight-bold"><strong>
+                                                        <h:outputText value="#{mbCarrito.obj_pedido.total}">
+                                                         <f:convertNumber type="currency" currencySymbol="$" locale="en_US" />
+
+                                                        </h:outputText>
+                                                    
+                                                    
+                                                    </strong></td>
+                                                </tr>
+                                            </tbody>
+                                       </table>
+
+                  
+                                <div class="d-grid gap-2">
+                                    <h:commandButton value="Realizar pago" class="btn btn-secondary btn-lg py-3 btn-block" action="#{mbPedido.agregarPedido()}"/>
+                                </div>
+                                           
+                                                             
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                       
+                  </div>
+             </div>
+           </h:form>         
+
+        </div>       
+    </ui:define>
+
+</ui:composition>

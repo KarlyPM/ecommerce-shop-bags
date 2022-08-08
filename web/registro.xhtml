@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Registro</title>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+        <h:outputScript library="js" name="bootstrap.min.js"/>
+        <link rel="stylesheet" href="resources/style/estilos.css" />
+
+    </h:head>
+    <h:body>
+        
+        <div class="container-fluid vh-100" >
+            
+            <div class="" style="margin-top: 50px;">
+                
+                <div class="rounded d-flex justify-content-center">
+
+                    <div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light">
+
+                        <div class="text-center">
+                            <h2 class="indigo" >Regístrate</h2>
+
+                        </div>
+                        <h:form id="frmRegistro">
+                             <p:growl id="growl_re" showDetail="true"/>
+                            <div class="p-4">
+                                
+                              
+
+                                <h:outputLabel value="Nombres"/>                                                                
+                                <div class="input-group mb-3">
+                                    <h:inputText  id="txtNombreRe" class="form-control" value="#{mbUsuario.obj_Usuario.nombre}" required="true" requiredMessage="Ingresar nombres"/>
+                                    <p:message for="txtNombreRe"/>
+                                </div>
+                                
+                                
+                                <h:outputLabel value="Apellido"/>                                                                
+                                <div class="input-group mb-3">
+                                    <h:inputText id="txtApellidoRe" class="form-control" value="#{mbUsuario.obj_Usuario.apellido}" required="true" requiredMessage="Ingresar Apellido"/>
+                                    <p:message for="txtApellidoRe"/>
+                                </div>
+                                
+                                <h:outputLabel value="Correo electronico"/>                                                                
+                                <div class="input-group mb-3">
+                                    <h:inputText id="txtCorreoElectronica" class="form-control"  value="#{mbUsuario.obj_Usuario.correoElectronico}" required="true" requiredMessage="Ingresar Correo" />
+                                    <p:message for="txtCorreoElectronica"/>
+                                </div>
+                                
+                                <h:outputLabel value="Contraseña"/>                                
+                                <div class="input-group">
+                                    <h:inputSecret id="txtContrase" class="form-control" value="#{mbUsuario.obj_Usuario.contrasena}" required="true" requiredMessage="Ingresar Contraseña"/>
+                                    <p:message for="txtContrase"/>
+                                </div>
+                                
+                                
+                                <div class="input-group mb-3">
+                                    <h:selectOneMenu  class="invisible"  id="cboMarca_m"   value="#{mbUsuario.obj_Usuario.tipoUsuario}"  required="true" >
+                                        <f:selectItem itemLabel="Cliente" itemValue="Cliente"/>
+                                        <p:message for="cboMarca_m"/>
+                                     </h:selectOneMenu>
+                                    
+                                </div>
+                                  
+                                <div class="mt-4">
+                           
+                                    <h:commandButton class="btn btn-secondary" value="Registrarse" action="#{mbUsuario.agregarRegistro()}"/>
+                                    <!-- important-->
+                                </div>
+
+                                
+                                <p class="text-center mt-5">¿Ya tienes tienes cuenta?
+                                    <h:link class="a-fontcolor" value = "Inicia sesion" outcome = "login"/>
+                                </p>
+                               
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>
+

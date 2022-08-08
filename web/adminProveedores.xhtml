@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./adminTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+    <ui:define name="content">
+               <h4>CRUD PROVEEDORES</h4>
+                <h:form id="frmProvedores"> 
+                <div class="p-3 ">
+                    <!--INPUTS -->
+                   
+                        <h:panelGrid id="pngIngresarProvedores" columns="3">
+                            <p:outputLabel value="Codigo" />
+                            <h:inputText class="form-control"   id="txtIdProveedor" value="#{mbProovedor.obj_Proveedor.idProveedor}" required="true"/>
+                            <p:message for="txtIdProveedor"/>
+                            <p:outputLabel value="Nombre"/>
+                            <h:inputText class="form-control"   id="txtNombre" value="#{mbProovedor.obj_Proveedor.nombre}" required="true"/>
+                            <p:message for="txtNombre"/>
+                            <p:outputLabel value="Contacto"/>
+                            <h:inputText class="form-control"   id="txtContacto" value="#{mbProovedor.obj_Proveedor.contacto}" required="true"/>
+                            <p:message for="txtContacto"/>
+                            <p:outputLabel value="Direccion"/>
+                            <h:inputText class="form-control"   id="txtDireccion" value="#{mbProovedor.obj_Proveedor.direccion}" required="true"/>
+                            <p:message for="txtDireccion"/>
+                            <p:outputLabel value="Celular"/>
+                            <h:inputText class="form-control"   id="txtCelular" value="#{mbProovedor.obj_Proveedor.celular}" required="true"/>
+                            <p:message for="txtCelular"/>
+
+                        </h:panelGrid>
+                 
+                </div>
+                                        
+                <div class="p-3">
+                   <p:commandButton icon="ui-icon-plusthick" value="Ingresar" 
+                                    actionListener="#{mbProovedor.agregarProveedor()}"
+                                  update=":frmProvedores :frmConsultar"/>
+                </div>  
+            </h:form>
+                <div class="p-4">
+                     <!--TABLA -->
+                    <h:form id="frmConsultar">
+                        <p:dataTable id="dtConsulta" value="#{mbProovedor.lstProveedor}" var="cl"
+                                    paginator="true" rows="4"
+                                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                    currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                                    rowsPerPageTemplate="4,{ShowAll|'All'}"
+                                    >
+                            <p:column headerText="Codigo">
+                                <h:outputText value="#{cl.idProveedor}"/>
+
+                            </p:column>
+
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{cl.nombre}"/>
+
+                            </p:column>
+
+
+                            <p:column headerText="Contacto">
+                                <h:outputText value="#{cl.contacto}"/>
+
+                            </p:column>   
+
+                            <p:column headerText="Direccion">
+                                <h:outputText value="#{cl.direccion}"/>
+
+                            </p:column>
+
+                            <p:column headerText="Celular">
+                                <h:outputText value="#{cl.celular}"/>
+
+                            </p:column>
+                            <p:column headerText=".......">
+                            <p:growl id="growl_modi" showDetail="true"/>
+                            <p:commandButton  value="Modificar" 
+                                              oncomplete="PF('dlgModificar').show()" 
+                                              update=":frmModificar">
+                                <f:setPropertyActionListener target="#{mbProovedor.obj_Proveedor}" value="#{cl}"/>
+                            </p:commandButton>
+                            </p:column>
+                                <p:column headerText="........">
+                                <p:growl id="growl_elim" showDetail="true"/>
+                                <p:commandButton  value="Eliminar" 
+                                                  oncomplete="PF('dlgEliminar').show()" 
+                                                  update=":frmEliminar">
+                                    <f:setPropertyActionListener target="#{mbProovedor.obj_Proveedor}" value="#{cl}"/>
+                                 </p:commandButton>    
+                                </p:column>
+                        </p:dataTable>
+                    </h:form>
+                      
+                     
+                        <p:dialog id="dlgModificar" minWidth="300" widgetVar="dlgModificar" 
+                           resizable="true" modal="true" header="Modificar Clientes" 
+                           showEffect="explode" hideEffect="explode">
+                            
+                            <h:form id="frmModificar">
+                                
+                                <h:panelGrid id="pngIngresarProvedores" columns="3">
+                                    <p:outputLabel value="Codigo" />
+                                    <h:inputText class="form-control"   id="txtIdProveedor_m" value="#{mbProovedor.obj_Proveedor.idProveedor}" required="true"/>
+                                    <p:message for="txtIdProveedor_m"/>
+                                    <p:outputLabel value="Nombre"/>
+                                    <h:inputText class="form-control"   id="txtNombre_m" value="#{mbProovedor.obj_Proveedor.nombre}" required="true"/>
+                                    <p:message for="txtNombre_m"/>
+                                    <p:outputLabel value="Contacto"/>
+                                    <h:inputText class="form-control"   id="txtContacto_m" value="#{mbProovedor.obj_Proveedor.contacto}" required="true"/>
+                                    <p:message for="txtContacto_m"/>
+                                    <p:outputLabel value="Direccion"/>
+                                    <h:inputText class="form-control"   id="txtDireccion_m" value="#{mbProovedor.obj_Proveedor.direccion}" required="true"/>
+                                    <p:message for="txtDireccion_m"/>
+                                    <p:outputLabel value="Celular"/>
+                                    <h:inputText class="form-control"   id="txtCelular_m" value="#{mbProovedor.obj_Proveedor.celular}" required="true"/>
+                                    <p:message for="txtCelular_m"/>
+                                    
+                                     <p:commandButton icon="ui-icon-refresh" value="Modificar" 
+                                                      actionListener="#{mbProovedor.modificarProveedor()}"
+                                            update=":frmConsultar" 
+                                            oncomplete="PF('dlgModificar').hide()"/>
+      
+                                </h:panelGrid>
+                               
+                            </h:form>
+                       </p:dialog>
+                      <p:dialog id="dlgEliminar" widgetVar="dlgEliminar" showEffect="explode" modal="true" minWidth="200"
+                                    resizable="false">
+            
+                        <h:form id="frmEliminar">
+
+                            <p:outputLabel value="Desea eliminar el cliente con id: #{mbProovedor.obj_Proveedor.idProveedor}"/>
+                            <p:commandButton icon="ui_icon-check" value="SI" 
+                                             actionListener="#{mbProovedor.eliminarProveedor()}" 
+                                             update=":frmConsultar"
+                                             oncomplete="PF('dlgEliminar').hide()"/>  
+
+                            <p:commandButton icon="ui-icon-trash" value="NO" 
+                                             onclick="PF('dlgEliminar').hide()"/> 
+                    
+                         </h:form>
+                     </p:dialog>
+     
+                </div>        
+    </ui:define>
+
+</ui:composition>

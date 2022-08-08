@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./adminTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">
+    <h:outputStylesheet library="css" name="default.css"/>
+
+              <!--TABLA -->
+                    <h:form id="frmConsultar">
+                
+                        <p:dataTable id="dtConsulta" var="cl" value="#{mbProducto.listProduImg}" 
+                                    widgetVar="dtProductos" 
+                                    paginator="true" rows="2"
+                                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                    currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                                    rowsPerPageTemplate="2,{ShowAll|'All'}"
+                                     filteredValue="#{mbProducto.lstProductosFiltrados}"
+                                    >
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <h:outputText value="Buscar"/>
+                                    <p:inputText id="globalFilter" onkeyup="PF('dtProductos').filter()" 
+                                                 placeholder="ingresar texto a buscar" style="width: 200px"/>
+                                </p:outputPanel>
+                            </f:facet>
+                       
+                           <p:column headerText="Codigo" >
+                                <h:outputText value="#{cl.idProducto}"/>
+
+                            </p:column>
+                            <p:column headerText="Imagen" >
+                                <p:graphicImage library="imagen" name="#{cl.imagennombre}" class="img-fluid"/>
+
+                            </p:column>                            
+
+                            <p:column headerText="Nombre" filterBy="#{cl.nombre}" filterMatchMode="contains">
+                                <h:outputText value="#{cl.nombre}"/>
+
+                            </p:column>
+
+
+                            <p:column headerText="Descripcion">
+                                <h:outputText value="#{cl.descripcion}"/>
+
+                            </p:column>   
+
+                            <p:column headerText="Precio">
+                                <h:outputText value="#{cl.precioUnitario}"/>
+
+                            </p:column>
+
+                            <p:column headerText="stock">
+                                <h:outputText value="#{cl.stock}"/>
+
+                            </p:column>
+
+                            <p:column headerText="Marca" footerText="filtro" filterMatchMode="exact" filterBy="#{cl.marca.descripcion}" style="width: 150px;">
+                                <f:facet name="filter">
+                                    <p:selectOneMenu onchange="PF('dtProductos').filter()">
+                                        <f:selectItem itemLabel="Todos" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{mbMarca.lstMarcaDescripc}"/>
+                                    </p:selectOneMenu>
+                                    
+                                </f:facet>
+                                <h:outputText value="#{cl.marca.descripcion}"/>
+
+                            </p:column>
+
+                            <p:column headerText="Proveedor">
+                                <h:outputText value="#{cl.proveedor.nombre}"/>
+
+                            </p:column>
+
+                            <p:column headerText="Categoria">
+                                <h:outputText value="#{cl.categoria.descripcion}"/>
+
+                            </p:column>
+                            <p:column headerText="... ">
+                            <p:growl id="growl_m" showDetail="true"/>
+                            <p:commandButton value="Modificar" oncomplete="PF('dglMoficar').show()" 
+                                             update=":frmModificar">
+                                <f:setPropertyActionListener target="#{mbProducto.obj_producto}" value="#{cl}"/>
+                            </p:commandButton>
+                        </p:column>  
+                        <p:column headerText="........">
+                                <p:growl id="growl_elim" showDetail="true"/>
+                                <p:commandButton  value="Eliminar" 
+                                                  oncomplete="PF('dlgEliminar').show()" 
+                                                  update=":frmEliminar">
+                                    <f:setPropertyActionListener target="#{mbProducto.obj_producto}" value="#{cl}"/>
+                                 </p:commandButton>    
+                        </p:column>                       
+              </p:dataTable>
+          </h:form> 
+
+        <p:dialog id="dglMoficar" header="Modificar" widgetVar="dglMoficar" showEffect="explode" modal="true" hideEffect="explode" minWidth="200" resizable="false">           
+          <h:form id="frmModificar">
+              <p:panelGrid id="pgModificar" columns="3">
+                            <p:outputLabel value="Codigo" />
+                            <h:inputText class="form-control" value="#{mbProducto.obj_producto.idProducto}" id="txtIdProducto_m" required="true"/>
+                            <p:message for="txtIdProducto_m"/>
+
+
+                            <p:outputLabel value="Nombre"/>
+                            <h:inputText class="form-control" value="#{mbProducto.obj_producto.nombre}"   id="txtNombre_m" required="true"/>
+                            <p:message for="txtNombre_m"/>
+
+                            <p:outputLabel value="Descripcion"/>
+                            <h:inputText class="form-control" value="#{mbProducto.obj_producto.descripcion}" id="txtDescripcionProducto_m" required="true"/>
+                            <p:message for="txtDescripcionProducto_m"/>
+
+                            <p:outputLabel value="Precio Unitario"/>
+                            <h:inputText class="form-control" value="#{mbProducto.obj_producto.precioUnitario}"  id="txtPrecio_m" required="true"/>
+                            <p:message for="txtPrecio_m"/>
+
+                            <p:outputLabel value="Stock"/>
+                            <h:inputText class="form-control" value="#{mbProducto.obj_producto.stock}"  id="txtStock_m" required="true"/>
+                            <p:message for="txtStock_m"/>
+
+                            <p:outputLabel value="Marca"/>
+                            <h:selectOneMenu  class="form-control"  id="cboMarca_m" required="true" value="#{mbProducto.obj_producto.marca.idMarca}">
+                                <f:selectItem itemLabel="--Seleccionar"/>
+                                <f:selectItems value="#{mbMarca.lstMarca}" var="mr" 
+                                               itemLabel="#{mr.descripcion}" itemValue="#{mr.idMarca}"/>                            
+                            </h:selectOneMenu>
+                            <p:message for="cboMarca_m"/>
+
+                            <p:outputLabel value="Proveedor"/>
+                            <h:selectOneMenu  class="form-control"  id="cboProveedor_m" required="true" value="#{mbProducto.obj_producto.proveedor.idProveedor}">
+                                <f:selectItem itemLabel="--Seleccionar"/>
+                                <f:selectItems value="#{mbProovedor.lstProveedor}" var="rs" 
+                                               itemLabel="#{rs.nombre}" itemValue="#{rs.idProveedor}"/>    
+                            </h:selectOneMenu>
+                            <p:message for="cboProveedor_m"/>
+
+
+                            <p:outputLabel value="Categoria"/>
+                            <h:selectOneMenu  class="form-control"  id="cboCategoria_m" required="true" value="#{mbProducto.obj_producto.categoria.idCategoria}">
+                                <f:selectItem itemLabel="--Seleccionar"/>
+                                <f:selectItems value="#{mbCategoria.lstCategoria}" var="ct" 
+                                               itemLabel="#{ct.descripcion}" itemValue="#{ct.idCategoria}"/>   
+                            </h:selectOneMenu>    
+                            <p:message for="cboCategoria_m"/>
+                
+                            <p:commandButton icon="ui-icon-plusthick" value="Modificar" actionListener="#{mbProducto.modificarProducto()}" update=":frmConsultar"
+                                 onclick="PF('dglMoficar').hide()"/>
+                </p:panelGrid>
+            </h:form>              
+        </p:dialog> 
+
+        <p:dialog id="dlgEliminar" widgetVar="dlgEliminar" showEffect="explode" modal="true" minWidth="200"
+                                    resizable="false">
+            
+                        <h:form id="frmEliminar">
+
+                            <p:outputLabel value="Desea eliminar el cliente con id: #{mbProducto.obj_producto.idProducto}"/>
+                            <p:commandButton icon="ui_icon-check" value="SI" 
+                                             actionListener="#{mbProducto.eliminarProducto()}" 
+                                             update=":frmConsultar"
+                                             oncomplete="PF('dlgEliminar').hide()"/>  
+
+                            <p:commandButton icon="ui-icon-trash" value="NO" 
+                                             onclick="PF('dlgEliminar').hide()"/> 
+                    
+                         </h:form>
+                     </p:dialog>             
+              
+    </ui:define>
+
+</ui:composition>

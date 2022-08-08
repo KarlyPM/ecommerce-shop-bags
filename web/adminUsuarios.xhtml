@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./adminTemplate.xhtml">
+
+            <ui:define name="content">
+              <h4> USUARIOS</h4>
+               <h:form id="frmUsuario">
+
+                <div class="p-3 ">
+                    <!--INPUTS -->
+                    <h:panelGrid id="pngIngresarProducto" columns="3">
+                        <p:outputLabel value="Codigo" />
+                        <h:inputText class="form-control"   id="txtIdUsuario" value="#{mbUsuario.obj_Usuario.idUsuario}" required="true"/>
+                        <p:message for="txtIdUsuario"/>
+                        <p:outputLabel value="Nombre"/>
+                        <h:inputText class="form-control"   id="txtNombre" value="#{mbUsuario.obj_Usuario.nombre}"  required="true"/>
+                        <p:message for="txtNombre"/>
+                        <p:outputLabel value="Apellido"/>
+                        <h:inputText class="form-control"   id="txtApellido" value="#{mbUsuario.obj_Usuario.apellido}"  required="true"/>
+                        <p:message for="txtApellido"/>
+                        <p:outputLabel value="Correo Electronico"/>
+                        <h:inputText class="form-control"   id="txtCorreo" value="#{mbUsuario.obj_Usuario.correoElectronico}"  required="true"/>
+                        <p:message for="txtCorreo"/>
+                        <p:outputLabel value="Tipo de usuario"/>
+                        <h:selectOneMenu  class="form-control"  id="cboMarca" value="#{mbUsuario.obj_Usuario.tipoUsuario}"  required="true">
+                                <f:selectItem itemLabel="--Seleccionar"/>
+                                <f:selectItem itemLabel="Cliente" itemValue="Cliente" />
+                                <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
+                        </h:selectOneMenu>
+                        <p:message for="cboMarca"/>
+                        <p:outputLabel value="Contraseña"/>
+                        <h:inputSecret class="form-control" id="txtContrase" value="#{mbUsuario.obj_Usuario.contrasena}"  required="true"/>
+                        <p:message for="txtContrase"/>
+
+                    </h:panelGrid>   
+
+                    
+                </div>
+                <div class="p-3">
+                      <p:commandButton icon="ui-icon-plusthick" value="Ingresar" 
+                                       actionListener="#{mbUsuario.agregarUsuario()}"
+                                  update=":frmUsuario :frmConsultar"/>
+                    
+                </div>
+                </h:form>
+
+                   <div class="p-4">
+                     <!--TABLA -->
+                      <h:form id="frmConsultar">
+                          <p:dataTable id="dtConsulta" value="#{mbUsuario.lstUsuario}" var="cl"
+                                    paginator="true" rows="4"
+                                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                    currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                                    rowsPerPageTemplate="4,{ShowAll|'All'}"                                       
+                                      >
+                            <p:column headerText="Codigo">
+                            <h:outputText value="#{cl.idUsuario}"/>
+
+                            </p:column>
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{cl.nombre}"/>
+
+                            </p:column>
+
+                            <p:column headerText="Apellido">
+                                <h:outputText value="#{cl.apellido}"/>
+
+                            </p:column>   
+
+                            <p:column headerText="Correo Electronico">
+                                <h:outputText value="#{cl.correoElectronico}"/>
+
+                            </p:column>
+
+                           <p:column headerText="Tipo de usuario">
+                               <h:outputText value="#{cl.tipoUsuario}"/>
+
+                            </p:column>
+
+                            <p:column headerText="Contraseña">
+                                <h:outputText value="#{cl.contrasena}"/>
+
+                            </p:column>
+                            <p:column headerText=".......">
+                                <p:growl id="growl_modi" showDetail="true"/>
+                                <p:commandButton  value="Modificar" 
+                                                  oncomplete="PF('dlgModificar').show()" 
+                                                  update=":frmModificar">
+                                    <f:setPropertyActionListener target="#{mbUsuario.obj_Usuario}" value="#{cl}"/>
+                                </p:commandButton>
+                            </p:column>
+                            <p:column headerText="........">
+                                <p:growl id="growl_elim" showDetail="true"/>
+                                <p:commandButton  value="Eliminar" 
+                                              oncomplete="PF('dlgEliminar').show()" 
+                                              update=":frmEliminar">
+                                    <f:setPropertyActionListener target="#{mbUsuario.obj_Usuario}" value="#{cl}"/>
+                            </p:commandButton>
+                        </p:column>
+
+                        </p:dataTable>
+
+                    </h:form>
+                     
+                        <p:dialog id="dlgModificar" minWidth="300" widgetVar="dlgModificar" 
+                             resizable="true" modal="true" header="Modificar Clientes" 
+                            showEffect="explode" hideEffect="explode">
+                          
+                            <h:form id="frmModificar">
+                                <h:panelGrid id="pngIngresarProducto" columns="3">
+                                    <p:outputLabel value="Codigo" />
+                                    <h:inputText class="form-control"   id="txtIdUsuario_m" value="#{mbUsuario.obj_Usuario.idUsuario}" required="true"/>
+                                    <p:message for="txtIdUsuario_m"/>
+                                    <p:outputLabel value="Nombre"/>
+                                    <h:inputText class="form-control"   id="txtNombre_m" value="#{mbUsuario.obj_Usuario.nombre}"  required="true"/>
+                                    <p:message for="txtNombre_m"/>
+                                    <p:outputLabel value="Apellido"/>
+                                    <h:inputText class="form-control"   id="txtApellido_m" value="#{mbUsuario.obj_Usuario.apellido}"  required="true"/>
+                                    <p:message for="txtApellido_m"/>
+                                    <p:outputLabel value="Correo Electronico"/>
+                                    <h:inputText class="form-control"   id="txtCorreo_m" value="#{mbUsuario.obj_Usuario.correoElectronico}"  required="true"/>
+                                    <p:message for="txtCorreo_m"/>
+                                    <p:outputLabel value="Tipo de usuario"/>
+                                     <h:selectOneMenu  class="form-control"  id="cboMarca_m" value="#{mbUsuario.obj_Usuario.tipoUsuario}"  required="true">
+                                            <f:selectItem itemLabel="--Seleccionar"/>
+                                            <f:selectItem itemLabel="Cliente" itemValue="Cliente" />
+                                            <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
+                                     </h:selectOneMenu>
+                                    <p:message for="cboMarca_m"/>
+                                    <p:outputLabel value="Contraseña"/>
+                                    <h:inputText class="form-control" id="txtContrase_m" value="#{mbUsuario.obj_Usuario.contrasena}"  required="true"/>
+                                    <p:message for="txtContrase_m"/>
+                                    
+                                    <p:commandButton icon="ui-icon-refresh" value="Modificar" 
+                                                     actionListener="#{mbUsuario.modificarUsuario()}"
+                                            update=":frmConsultar" 
+                                            oncomplete="PF('dlgModificar').hide()"/>
+
+                                    
+                                </h:panelGrid>
+                            </h:form>    
+                        </p:dialog>
+                               <p:dialog id="dlgEliminar" widgetVar="dlgEliminar" showEffect="explode" modal="true" minWidth="200"
+                                    resizable="false">
+            
+                                        <h:form id="frmEliminar">
+
+                                            <p:outputLabel value="Desea eliminar el cliente con id: #{mbUsuario.obj_Usuario.idUsuario}"/>
+                                            <p:commandButton icon="ui_icon-check" value="SI" 
+                                                             actionListener="#{mbUsuario.eliminarUsuario()}" 
+                                                             update=":frmConsultar"
+                                                             oncomplete="PF('dlgEliminar').hide()"/>  
+
+                                            <p:commandButton icon="ui-icon-trash" value="NO" 
+                                                             onclick="PF('dlgEliminar').hide()"/> 
+
+                                         </h:form>
+                            </p:dialog>
+                          
+                      
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

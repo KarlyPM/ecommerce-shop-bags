@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 17, 2022 11:10:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Producto" table="producto" schema="public" optimistic-lock="version">
+        <id name="idProducto" type="int">
+            <column name="id_producto" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="categoria" class="modelo.Categoria" fetch="select">
+            <column name="id_categoria" />
+        </many-to-one>
+        <many-to-one name="marca" class="modelo.Marca" fetch="select">
+            <column name="id_marca" />
+        </many-to-one>
+        <many-to-one name="proveedor" class="modelo.Proveedor" fetch="select">
+            <column name="id_proveedor" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" not-null="true" />
+        </property>
+        <property name="precioUnitario" type="double">
+            <column name="precio_unitario" precision="17" scale="17" not-null="true" />
+        </property>
+        <property name="imagen" type="binary">
+            <column name="imagen" />
+        </property>
+        <property name="stock" type="int">
+            <column name="stock" not-null="true" />
+        </property>
+        <property name="imagennombre" type="string">
+            <column name="imagennombre" />
+        </property>
+        <set name="pedidos" table="pedido" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_producto" />
+            </key>
+            <one-to-many class="modelo.Pedido" />
+        </set>
+    </class>
+</hibernate-mapping>

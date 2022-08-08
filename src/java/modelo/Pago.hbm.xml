@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 17, 2022 11:10:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Pago" table="pago" schema="public" optimistic-lock="version">
+        <id name="idPago" type="int">
+            <column name="id_pago" />
+            <generator class="assigned" />
+        </id>
+        <property name="metodoPago" type="string">
+            <column name="metodo_pago" not-null="true" />
+        </property>
+        <property name="nombreTitular" type="string">
+            <column name="nombre_titular" not-null="true" />
+        </property>
+        <property name="fechaExpedicion" type="date">
+            <column name="fecha_expedicion" length="13" not-null="true" />
+        </property>
+        <property name="numeroTarjeta" type="string">
+            <column name="numero_tarjeta" not-null="true" />
+        </property>
+        <set name="pedidos" table="pedido" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_pago" />
+            </key>
+            <one-to-many class="modelo.Pedido" />
+        </set>
+    </class>
+</hibernate-mapping>
