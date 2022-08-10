@@ -1,5 +1,39 @@
-# ecommerce-shop-bags
-Proyecto de comercio electrónico. Aplicacion web java basada en una tienda electronica de bolsos
+# ecommerce-java-shop-bags
+Aplicacion web eCommerce basada en una tienda electronica de bolsos.  
+
+### Tools and Technologies:
+
+* **Technology** : Java, Bootstrap, PrimeFaces, Hibernate, JSF.
+* **Application Servicer**: Glassfish Server.
+* **Database** : PostgreSQL
+
+### Funcionalidades:
+
+<b>Administracion</b>
+
+| Modulo  | Operaciones CRUD|
+|----------|:-------------:|
+| Productos | &#10004;  | 
+| Proveedores | &#10004; | 
+| Categoria | &#10004; | 
+| Usuarios | &#10004; | 
+
+
+<b>Compra</b>
+
+| Funcionalidad  |  Codigo |
+|----------|:-------------:|
+| Ver carrito | &#10004; | 
+| Añadir artículo | &#10004; | 
+| Quitar un artículo | &#10004; | 
+| Busquedad filtrada | &#10004; | 
+| Checkout | &#10004; | 
+
+
+
+#### ¡Mejoras!
+Si encuentras que algo anda mal o que puede mejorar, tómalo como una tarea y 💪 --> crea un PullRequest 🛠.
+
 
 ## SECCION DE ADMINISTRACION 
 ![admin-user](https://user-images.githubusercontent.com/70911022/183340379-4be396ae-0019-4585-8941-b87fb95b7955.PNG)
@@ -14,8 +48,12 @@ Proyecto de comercio electrónico. Aplicacion web java basada en una tienda elec
 ## SECCION CATALOGO
 ![catalogo](https://user-images.githubusercontent.com/70911022/183340738-9a984df4-4a30-475e-8789-6626f4649a4b.PNG)
 
-## SECCION CARRITO
+## CHECKOUT CARRITO
 ![carrito](https://user-images.githubusercontent.com/70911022/183340774-974ee778-9a29-48c5-9f9e-7a4e45aea2d2.PNG)
 
 ## SECCION PEDIDO
 ![pedido](https://user-images.githubusercontent.com/70911022/183340800-438d0d55-c71f-44ca-9dd9-55e9e6f1ee02.PNG)
+
+
+<h3 align="center"><i>GRACIAS POR LEER LA DESCRIPCIÓN DE ESTE PROYECTO, SIEMPRE ES BIENVENIDO EL FEEDBACK PARA MEJORAR</i></h3>
+
