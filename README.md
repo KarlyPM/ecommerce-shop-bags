@@ -54,6 +54,7 @@ Si encuentras que algo anda mal o que puede mejorar, tómalo como una tarea y �
 ## SECCION PEDIDO
 ![pedido](https://user-images.githubusercontent.com/70911022/183340800-438d0d55-c71f-44ca-9dd9-55e9e6f1ee02.PNG)
 
+<h3 align="center">Si te ha gustado algo, no olvides darle una ⭐</h3>
 
 <h3 align="center"><i>GRACIAS POR LEER LA DESCRIPCIÓN DE ESTE PROYECTO, SIEMPRE ES BIENVENIDO EL FEEDBACK PARA MEJORAR</i></h3>
 
